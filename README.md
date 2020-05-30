@@ -13,10 +13,13 @@ O365 AuditLog extract solution contains implementation of ETL process to extract
     * Create App Registration to access secrets from Azure Key Vault
     * Create App Registration and add Application Id & Client Secret of App Registration to Azure Key Vault as secrets. Expose O365 Management Activity Api permissions to read activities using O365 Management Activity Api.
 
-3. Create Action Flow to deploy generated outputs from CI.yaml file
+4. Create Action Flow to deploy generated outputs from CI.yaml file
     * Update appsettings.json with Environment variables and secrets
     * Deploy package file generated from CI workflow
     
+## Network Diagram 
+
+[VNET with Service Endpoints](/Networking Diagram with VNET & Service Endpoint.png)
 
 
 
