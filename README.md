@@ -19,11 +19,8 @@ O365 AuditLog extract solution contains implementation of ETL process to extract
     
 ## Network Diagram 
 
-```
-<p align="center">
-  <img src="https://github.com/prdpsvs/O365AuditLogExtract/blob/master/Networking%20Diagram%20with%20VNET%20%26%20Service%20Endpoint.png">
-</p>
-```
+![VNET Integration with Service Endpoints](https://github.com/prdpsvs/O365AuditLogExtract/blob/master/Networking%20Diagram%20with%20VNET%20%26%20Service%20Endpoint.png")
+
 
 
 
