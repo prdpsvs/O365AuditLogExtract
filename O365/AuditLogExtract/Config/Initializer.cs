@@ -2,8 +2,10 @@
 {
     using AuditLogExtract.Entities;
     using AuditLogExtract.ServiceClient;
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Environment = Entities.Environment;
 
     public class Initializer : IInitializer
     {
@@ -11,10 +13,10 @@
         IKeyVaultClientWrapper _keyVaultClientWrapper;
         private Dictionary<string, object> _localMap;
 
-        public Initializer(IKeyVaultClientWrapper keyVaultManager, AppSettings appSettings, Configuration configuration)
+        public Initializer(IKeyVaultClientWrapper keyVaultWrapper, AppSettings appSettings, Configuration configuration)
         {
             _localMap = new Dictionary<string, object>();
-            _keyVaultClientWrapper = keyVaultManager;
+            _keyVaultClientWrapper = keyVaultWrapper;
             _configuration = configuration;
             _configuration.AppSettings = appSettings;
         }
@@ -66,9 +68,11 @@
         /// <returns></returns>
         public async Task InitializeConfigurationAsync()
         {
-            _configuration.AppSettings.DatabaseClientId = await _keyVaultClientWrapper.GetSecretAsync(_configuration.AppSettings.DatabaseClientIdName).ConfigureAwait(false);
-            _configuration.AppSettings.DatabaseClientSecret = await _keyVaultClientWrapper.GetSecretAsync(_configuration.AppSettings.DatabaseClientSecretName).ConfigureAwait(false);
-
+            if (_configuration.AppSettings.Env != Enum.GetName(typeof(Environment.Env), 0))
+            {
+                _configuration.AppSettings.DatabaseClientId = await _keyVaultClientWrapper.GetSecretAsync(_configuration.AppSettings.DatabaseClientIdName).ConfigureAwait(false);
+                _configuration.AppSettings.DatabaseClientSecret = await _keyVaultClientWrapper.GetSecretAsync(_configuration.AppSettings.DatabaseClientSecretName).ConfigureAwait(false);
+            }
             _configuration.AppSettings.AuditLogClientId = await _keyVaultClientWrapper.GetSecretAsync(_configuration.AppSettings.AuditLogClientIdName).ConfigureAwait(false);
             _configuration.AppSettings.AuditLogClientSecret = await _keyVaultClientWrapper.GetSecretAsync(_configuration.AppSettings.AuditLogClientSecretName).ConfigureAwait(false);
 

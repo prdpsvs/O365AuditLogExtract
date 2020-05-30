@@ -1,4 +1,4 @@
-﻿namespace uditLogExtract.Data
+﻿namespace AuditLogExtract.Data
 {
     using AuditLogExtract.Config;
     using AuditLogExtract.Data;

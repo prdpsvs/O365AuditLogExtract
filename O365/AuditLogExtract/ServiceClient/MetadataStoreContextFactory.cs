@@ -10,7 +10,7 @@
     public class MetadataStoreContextFactory : IMetadataStoreContextFactory
     {
         private Configuration _configuration;
-        private IAuthenticationWrapper _authWrapper; 
+        private IAuthenticationWrapper _authWrapper;
         private ServiceAuthenticationContract _sqlServiceAuthenticationContract;
 
 
@@ -35,13 +35,14 @@
         /// <returns></returns>
         public async Task<SqlConnection> CreateConnectionAsync()
         {
-            var result = await _authWrapper.GetAuthenticationResult(_sqlServiceAuthenticationContract).ConfigureAwait(false);
-
             SqlConnection sqlConnection;
             if (_configuration.AppSettings.Env == Enum.GetName(typeof(Environment.Env), 0))
                 sqlConnection = new SqlConnection(_configuration.AppSettings.DevSqlConnectionString);
             else
+            {
+                var result = await _authWrapper.GetAuthenticationResult(_sqlServiceAuthenticationContract).ConfigureAwait(false);
                 sqlConnection = GetSqlConnection(result.AccessToken);
+            }
             return sqlConnection;
         }
 

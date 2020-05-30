@@ -35,21 +35,22 @@
         private Tuple<string, string> _timeStamps;
         private ServiceAuthenticationContract _O365ServiceAuthenticationContract;
 
-        public Orchestrator(IInitializer configurationManager,
+        public Orchestrator(IInitializer initializer,
             ILog log, IAdo ado,
             IAuthenticationWrapper authWrapper, IRetryClient retryClient, ILogAppender logAppender,
             IO365ActivityApiWrapper o365ActivityApiWrapper)
         {
 
-            _log = log;
-            AuditLogTimeStampsForPowerPlatform = GetLatestTimeStampForPowerPlatform;
+            _log = log;           
             _logAppender = logAppender;
             _authWrapper = authWrapper;
             _o365ActivityApiWrapper = o365ActivityApiWrapper;
             _ado = ado;
-            _initializer = configurationManager;
+            _initializer = initializer;
             _configuration = _initializer.Configuration;
             _retryClient = retryClient;
+
+            AuditLogTimeStampsForPowerPlatform = GetLatestTimeStampForPowerPlatform;
 
             _O365ServiceAuthenticationContract = new ServiceAuthenticationContract
             {
@@ -58,8 +59,7 @@
                 LoginUrl = _configuration.AppSettings.LoginUrl,
                 ResourceUrl = _configuration.AppSettings.Office365ResourceId,
                 TenantId = _configuration.AppSettings.TenantId
-            };
-
+            }; 
         }
         public Tuple<string, string> GetLatestTimeStampForPowerPlatform
         {
