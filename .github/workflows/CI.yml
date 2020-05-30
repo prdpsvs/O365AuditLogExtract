@@ -18,16 +18,16 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     
-    - name: setup-msbuild
+    - name: Setup Build Pipeline
       uses: microsoft/setup-msbuild@v1
     
-    - name: Setup NuGet
+    - name: Setup NuGet Version for Restore
       uses: NuGet/setup-nuget@v1.0.2
     
     - name: Restore Nuget packages
       run: nuget restore O365/O365.sln
         
-    - name: Build Solution
+    - name: Build Audit Log Extract Solution
       run: msbuild O365/O365.sln
     
     
