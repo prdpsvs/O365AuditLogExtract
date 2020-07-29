@@ -15,7 +15,7 @@ O365 AuditLog extract solution contains implementation of ETL process to extract
 
 4. Create Action Flow to deploy generated outputs from CI.yaml file
     * Update appsettings.json with Environment variables and secrets
-    * Deploy package file generated from CI workflow
+    * Deploy package file generated from CI workflow.
     
 ## Network Diagram 
 
